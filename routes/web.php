@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\Admin\MainController;
+use App\Http\Controllers\Admin\MenuController;
 use App\Http\Controllers\Admin\User\LoginController;
 use Illuminate\Support\Facades\Route;
 
@@ -22,7 +23,19 @@ use Illuminate\Support\Facades\Route;
  //route for admin
 
  Route::middleware(['auth'])->group(function () {
-    Route::get('admin',[MainController::class,'index'])->name('admin');
-    Route::get('admin/main',[MainController::class,'index']);
+
+    Route::prefix('admin')->group(function () {
+
+        // Route Main
+        Route::get('/',[MainController::class,'index'])->name('admin');
+        Route::get('main',[MainController::class,'index']);
+       
+        // Route Menus
+        Route::prefix('menus')->group(function () {
+            Route::get('add',[MenuController::class,'create']);
+        });
+    });
+  
+
  });
 
