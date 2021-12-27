@@ -9,6 +9,7 @@ class MainController extends Controller
 {
     public function index()
     {
-       return 'admin';
+        $title = 'Trang Quản Trị';
+        return view('admin.home')->with(compact('title'));
     }
 }

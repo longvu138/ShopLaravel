@@ -19,8 +19,7 @@ class LoginController extends Controller
         // dd($request->input());
         $email = $request->input('email');
         $password = $request->input('password');
-        $remember =$request->input('remember');
-
+    
 
         $validate = [
             'email' => 'required|email:filter',
@@ -34,7 +33,7 @@ class LoginController extends Controller
         $request->validate($validate, $messages);
 
         //  kiểm tra đăng nhập
-        if (Auth::attempt(['email' => $email, 'password' => $password], $remember))
+        if (Auth::attempt(['email' => $email, 'password' => $password]))
         {
             return redirect()->route('admin');  
         }
