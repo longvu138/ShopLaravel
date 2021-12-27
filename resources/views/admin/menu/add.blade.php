@@ -4,7 +4,7 @@
     <script src="/ckeditor/ckeditor.js"></script>
 @endsection
 @section('content')
-    
+
     <form action="" method="post">
         @csrf
         <div class="card-body">
@@ -17,6 +17,9 @@
                 <label>Danh mục </label>
                 <select name="parent_id" class="form-control">
                     <option value="0"> Danh mục cha</option>
+                    @foreach ($menus as $menu)
+                        <option value="{{ $menu->id }}"> {{ $menu->name }}</option>
+                    @endforeach
                 </select>
             </div>
 
@@ -48,10 +51,10 @@
     </form>
 
 @section('footer')
-<script>
-    // Replace the <textarea id="editor1"> with a CKEditor 4
-    // instance, using default configuration.
-    CKEDITOR.replace( 'content' );
-</script>
+    <script>
+        // Replace the <textarea id="editor1"> with a CKEditor 4
+        // instance, using default configuration.
+        CKEDITOR.replace('content');
+    </script>
 @endsection
 @endsection
