@@ -4,12 +4,13 @@
     <script src="/ckeditor/ckeditor.js"></script>
 @endsection
 @section('content')
+    
     <form action="" method="post">
-
+        @csrf
         <div class="card-body">
             <div class="form-group">
                 <label for="menu">Tên Danh Mục</label>
-                <input type="text" class="form-control" id="exampleInputEmail1" placeholder="Tên Danh Mục" name="menu">
+                <input type="text" class="form-control" id="exampleInputEmail1" placeholder="Tên Danh Mục" name="name">
             </div>
 
             <div class="form-group">

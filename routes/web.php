@@ -33,6 +33,8 @@ use Illuminate\Support\Facades\Route;
         // Route Menus
         Route::prefix('menus')->group(function () {
             Route::get('add',[MenuController::class,'create']);
+            Route::post('add',[MenuController::class,'store']);
+
         });
     });
   
