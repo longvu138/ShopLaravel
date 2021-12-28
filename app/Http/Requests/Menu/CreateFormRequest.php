@@ -25,15 +25,15 @@ class CreateFormRequest extends FormRequest
     public function rules()
     {
         return [
-            'name' =>'required',
-            'description'=>'required',
+            'name' => 'required',
+            'description' => 'required',
         ];
     }
     public function messages()
-{
-    return [
-        'name.required' => 'Vui lòng nhập tên danh mục',
-        'description.required' => 'Vui lòng nhập vào mô tả',
-    ];
-}
+    {
+        return [
+            'name.required' => 'Vui lòng nhập tên danh mục',
+            'description.required' => 'Vui lòng nhập vào mô tả',
+        ];
+    }
 }

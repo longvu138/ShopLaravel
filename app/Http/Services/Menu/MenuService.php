@@ -4,6 +4,7 @@ namespace App\Http\Services\Menu;
 
 use App\Models\Menu;
 use Illuminate\Support\Str;
+use Illuminate\Support\Facades\Session;
 
 class MenuService
 {
@@ -57,16 +58,39 @@ class MenuService
     //Xoá
 
     public function destroy($request)
-    {   
+    {
         $id = (int)$request->input('id');
         // lấy ra menu với id = id truyền vào
-        $menu= Menu::where('id',$id)->first();
+        $menu = Menu::where('id', $id)->first();
         // nếu menu = true
-        if($menu)
-        {   
+        if ($menu) {
             // xoá menu trong csdl với id  = id truyền vào hoặc id cha = id truyền vào
             return Menu::where('id', $id)->orWhere('parent_id', $id)->delete();
         }
         return false;
+    }
+
+    public function update($menu, $request)
+    {   
+    
+        // Kiểm tra id nếu là chính nó thì không update vào danh muuc con
+        if ($request->input('parent_id') != $menu->id) {
+            $menu->parent_id = (int)$request->input('parent_id');
+        }
+
+        try {
+            $menu->name = (string) $request->input('name');
+            $menu->description = (string) $request->input('description');
+            $menu->content = (string) $request->input('content');
+            $menu->active = (int) $request->input('active');
+            $menu->slug = Str::slug($request->input('name'), '-');
+
+            $menu->save();
+            Session()->flash('success', 'Cập nhật danh mục thành công');
+        } catch (\Exception $err) {
+            Session()->flash('error', 'Tên danh mục có thể bị trùng bạn vui lòng kiểm tra lại');
+            return false;
+        }
+        return true;
     }
 }

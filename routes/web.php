@@ -36,7 +36,10 @@ use Illuminate\Support\Facades\Route;
             Route::post('add',[MenuController::class,'store']);
             Route::get('list',[MenuController::class,'index']);
             Route::delete('destroy',[MenuController::class,'destroy']);
-
+            // bắt id của để get ra thông tin
+            Route::get('edit/{menu}',[MenuController::class,'show']);
+            Route::post('edit/{menu}',[MenuController::class,'update']);
+           
 
         });
     });
