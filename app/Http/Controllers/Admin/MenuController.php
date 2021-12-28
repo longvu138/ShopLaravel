@@ -20,12 +20,19 @@ class MenuController extends Controller
     {
         $title = 'Thêm Danh Mục Mới';
         $menus = $this->menuService->getParent();
-        return view('admin.menu.add')->with(compact('title','menus'));
+        return view('admin.menu.add')->with(compact('title', 'menus'));
     }
 
     public function store(CreateFormRequest $request)
     {
-        $result = $this->menuService->create($request);
+        $this->menuService->create($request);
         return redirect()->back();
+    }
+
+    public function index()
+    {   
+        $title = "Danh Sách Danh Mục";
+        $menus = $this->menuService->getAll();
+        return view('admin.menu.list')->with(compact('title', 'menus'));
     }
 }

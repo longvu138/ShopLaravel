@@ -7,11 +7,31 @@ use Illuminate\Support\Str;
 
 class MenuService
 {
-    public function getParent()
+
+
+    // public function get($parent_id = 1)
+    // {
+    //     // nếu parent_id 0 (chạy query trong when) nếu parent_id = 1 chạy get all();
+
+    //     return Menu::when($parent_id == 0, function ($query) use ($parent_id) {
+    //             $query->where('parent_id', $parent_id);
+    //         })->get();
+    // }
+
+    // lấy tất cả danh sách Menu
+
+    public function getAll()
     {
-        return Menu::where('parent_id',0)->get();
+        return Menu::orderbyDesc('id')->get();
     }
 
+    // lấy menu cha
+    public function getParent()
+    {
+        return Menu::where('parent_id', 0)->get();
+    }
+
+    //Thêm mới
     public function create($request)
     {
 
