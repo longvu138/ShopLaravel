@@ -30,9 +30,24 @@ class MenuController extends Controller
     }
 
     public function index()
-    {   
+    {
         $title = "Danh Sách Danh Mục";
         $menus = $this->menuService->getAll();
         return view('admin.menu.list')->with(compact('title', 'menus'));
+    }
+
+    public function destroy(Request $request)
+    {
+        $result =   $this->menuService->destroy($request);
+        if ($result) {
+            return response()->json([
+                "error" => false,
+                "message" => "Xoá thành công danh mục"
+            ]);
+        }
+
+        return response()->json([
+            "error" => true,
+        ]);
     }
 }

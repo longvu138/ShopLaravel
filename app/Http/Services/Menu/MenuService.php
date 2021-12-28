@@ -53,4 +53,20 @@ class MenuService
 
         return True;
     }
+
+    //Xoá
+
+    public function destroy($request)
+    {   
+        $id = (int)$request->input('id');
+        // lấy ra menu với id = id truyền vào
+        $menu= Menu::where('id',$id)->first();
+        // nếu menu = true
+        if($menu)
+        {   
+            // xoá menu trong csdl với id  = id truyền vào hoặc id cha = id truyền vào
+            return Menu::where('id', $id)->orWhere('parent_id', $id)->delete();
+        }
+        return false;
+    }
 }
