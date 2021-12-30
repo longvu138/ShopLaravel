@@ -12,15 +12,45 @@ function removeRow(id, url) {
             data: { id },
             url: url,
             success: function (result) {
-               if (result.error === false) {
-                   alert(result.message);
-                   location.reload();
-               }
-               else{
-                   alert("lỗi chưa thể xoá");
-               }
+                if (result.error === false) {
+                    alert(result.message);
+                    location.reload();
+                }
+                else {
+                    alert("lỗi chưa thể xoá");
+                }
             }
 
         })
     }
 }
+
+
+// Upload file Ajax
+
+$('#upload').change(function () {
+    var image = $('input[type=file]')[0].files[0];
+    const form = new FormData();
+    form.append('file', image);
+
+    $.ajax({
+        processData: false,
+        contentType: false,
+        type: 'POST',
+        dataType: 'JSON',
+        data: form,
+        url: '/admin/upload/services',
+        success: function (results) {
+            if (results.error === false) {
+                // load link ảnmh trả về từ storage
+                $('#image_show').html('<a href="' + results.url + '" target="_blank">' +
+                    '<img src="' + results.url + '" width="100px"></a>');
+
+                $('#thumb').val(results.url);
+            } else {
+                alert('Upload File Lỗi');
+            }
+        }
+    });
+});
+

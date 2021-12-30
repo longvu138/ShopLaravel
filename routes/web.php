@@ -2,6 +2,8 @@
 
 use App\Http\Controllers\Admin\MainController;
 use App\Http\Controllers\Admin\MenuController;
+use App\Http\Controllers\admin\ProductController;
+use App\Http\Controllers\Admin\UploadController;
 use App\Http\Controllers\Admin\User\LoginController;
 use Illuminate\Support\Facades\Route;
 
@@ -39,9 +41,25 @@ use Illuminate\Support\Facades\Route;
             // bắt id của để get ra thông tin
             Route::get('edit/{menu}',[MenuController::class,'show']);
             Route::post('edit/{menu}',[MenuController::class,'update']);
-           
-
         });
+
+        // ROUTE PRODUCT
+        Route::prefix('products')->group(function () {
+            Route::get('add',[ProductController::class,'create']);
+            Route::post('add',[ProductController::class,'store']);
+            Route::get('list',[ProductController::class,'index']);
+            Route::delete('destroy',[ProductController::class,'destroy']);
+            // bắt id của để get ra thông tin
+            Route::get('edit/{menu}',[ProductController::class,'show']);
+            Route::post('edit/{menu}',[ProductController::class,'update']);
+        });
+
+
+         #Route Upload
+         Route::post('/upload/services', [UploadController::class, 'store']);
+
+
+
     });
   
 
