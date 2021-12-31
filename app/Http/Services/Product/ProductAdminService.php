@@ -12,18 +12,22 @@ class ProductAdminService
 {
     public function getMenu()
     {
+        // lấy ra menu với id  = 1 ;
         return Menu::where('active', 1)->get();
     }
 
+    // kiểm tra giá nhập vào và giảm giá. Giảm giá < giá nhập vào
     protected function isValidPrice($request)
     {
-        if ($request->input('price') != 0 && $request->input('price_sale') != 0
+        if (
+            $request->input('price') != 0 && $request->input('price_sale') != 0
             && $request->input('price_sale') >= $request->input('price')
         ) {
             Session::flash('error', 'Giá giảm phải nhỏ hơn giá gốc');
             return false;
         }
 
+        // nếu có giá giảm mà k có giá gốc -> error
         if ($request->input('price_sale') != 0 && (int)$request->input('price') == 0) {
             Session::flash('error', 'Vui lòng nhập giá gốc');
             return false;
@@ -34,21 +38,22 @@ class ProductAdminService
 
     public function insert($request)
     {
-        // $isValidPrice = $this->isValidPrice($request);
-        // if ($isValidPrice === false) return false;
+        //  kiểm tra giá nhập vào và giảm giá
+        $isValidPrice = $this->isValidPrice($request);
+        if ($isValidPrice === false) return false;
+       
+        try {
+            // except đeẻ bỏ token khỏi mảng
+            $request->except('_token');
+            Product::create($request->all());
 
-        // try {
-        //     $request->except('_token');
-        //     Product::create($request->all());
+            Session::flash('success', 'Thêm Sản phẩm thành công');
+        } catch (\Exception $err) {
+            Session::flash('error', 'Thêm Sản phẩm lỗi');
+            return  false;
+        }
 
-        //     Session::flash('success', 'Thêm Sản phẩm thành công');
-        // } catch (\Exception $err) {
-        //     Session::flash('error', 'Thêm Sản phẩm lỗi');
-        //     \Log::info($err->getMessage());
-        //     return  false;
-        // }
-
-        // return  true;
+        return  true;
     }
 
     public function get()
