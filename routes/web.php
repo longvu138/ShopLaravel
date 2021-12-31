@@ -6,6 +6,7 @@ use App\Http\Controllers\admin\ProductController;
 use App\Http\Controllers\admin\SliderController;
 use App\Http\Controllers\Admin\UploadController;
 use App\Http\Controllers\Admin\User\LoginController;
+use App\Http\Controllers\Frontend\MainController as FrontendMainController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -70,10 +71,11 @@ use Illuminate\Support\Facades\Route;
          #Route Upload
          Route::post('/upload/services', [UploadController::class, 'store']);
 
-
-
+      
     });
   
+  #Route frontend
+  Route::get('/',[FrontendMainController::class,'index']);
 
  });
 
