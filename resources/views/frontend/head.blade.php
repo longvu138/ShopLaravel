@@ -31,3 +31,4 @@
 	<link rel="stylesheet" type="text/css" href="/template/frontend/css/util.css">
 	<link rel="stylesheet" type="text/css" href="/template/frontend/css/main.css">
 <!--===============================================================================================-->
+<meta name="csrf-token" content="{{ csrf_token() }}">

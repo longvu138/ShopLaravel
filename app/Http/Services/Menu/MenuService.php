@@ -21,6 +21,15 @@ class MenuService
 
     // lấy tất cả danh sách Menu
 
+    public function show()
+    {
+        return Menu::select('name', 'id')
+            ->where('parent_id', 0)
+            ->orderbyDesc('id')
+            ->get();
+    }
+
+    
     public function getAll()
     {
         return Menu::orderbyDesc('id')->get();
