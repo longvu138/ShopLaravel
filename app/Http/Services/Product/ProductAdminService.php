@@ -65,19 +65,19 @@ class ProductAdminService
 
     public function update($request, $product)
     {
-        // $isValidPrice = $this->isValidPrice($request);
-        // if ($isValidPrice === false) return false;
+        $isValidPrice = $this->isValidPrice($request);
+        if ($isValidPrice === false) return false;
 
-        // try {
-        //     $product->fill($request->input());
-        //     $product->save();
-        //     Session::flash('success', 'Cập nhật thành công');
-        // } catch (\Exception $err) {
-        //     Session::flash('error', 'Có lỗi vui lòng thử lại');
-        //     \Log::info($err->getMessage());
-        //     return false;
-        // }
-        // return true;
+        try {
+            $product->fill($request->input());
+            $product->save();
+            Session::flash('success', 'Cập nhật thành công');
+        } catch (\Exception $err) {
+            Session::flash('error', 'Có lỗi vui lòng thử lại');
+
+            return false;
+        }
+        return true;
     }
 
     public function delete($request)

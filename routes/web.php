@@ -50,8 +50,8 @@ use Illuminate\Support\Facades\Route;
             Route::get('list',[ProductController::class,'index']);
             Route::delete('destroy',[ProductController::class,'destroy']);
             // bắt id của để get ra thông tin
-            Route::get('edit/{menu}',[ProductController::class,'show']);
-            Route::post('edit/{menu}',[ProductController::class,'update']);
+            Route::get('edit/{product}',[ProductController::class,'show']);
+            Route::post('edit/{product}',[ProductController::class,'update']);
         });
 
 
