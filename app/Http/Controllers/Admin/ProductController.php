@@ -25,6 +25,10 @@ class ProductController extends Controller
     public function index()
     {
         //
+        $title = 'Danh Sách Sản Phẩm';
+        $products = $this->productService->get();
+        // dd($products->toArray());
+        return view('admin.product.list')->with(compact('title','products'));
     }
 
     /**

@@ -19,9 +19,10 @@ class Product extends Model
         'thumb'
     ];
 
-    // public function menu()
-    // {
-    //     return $this->hasOne(Menu::class, 'id', 'menu_id')
-    //         ->withDefault(['name' => '']);
-    // }
+    // tạo liên kết 1-1 product với bảng menu
+    public function menu()
+    {
+        return $this->hasOne(Menu::class, 'id', 'menu_id')
+            ->withDefault(['name' => '']);
+    }
 }

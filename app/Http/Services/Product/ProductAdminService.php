@@ -58,8 +58,9 @@ class ProductAdminService
 
     public function get()
     {
+        // lấy product với menu đưỢc liên kết trong models
         return Product::with('menu')
-            ->orderByDesc('id')->paginate(15);
+            ->orderByDesc('id')->paginate(10);
     }
 
     public function update($request, $product)
