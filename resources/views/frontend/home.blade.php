@@ -91,7 +91,7 @@
             </div>
 
             <div id="loadProduct">
-                {{-- @include('products.list') --}}
+                @include('frontend.products.list')
             </div>
 
 

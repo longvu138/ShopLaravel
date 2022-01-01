@@ -74,8 +74,9 @@ use Illuminate\Support\Facades\Route;
       
     });
   
-  #Route frontend
-  Route::get('/',[FrontendMainController::class,'index']);
-
  });
 
+  #Route frontend
+  Route::get('/',[FrontendMainController::class,'index']);
+ #LOAD PRODUCT
+    Route::post('/services/load-product', [FrontendMainController::class,'loadProduct']);

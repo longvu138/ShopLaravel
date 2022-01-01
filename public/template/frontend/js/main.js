@@ -280,3 +280,8 @@
 
 
 })(jQuery);
+
+
+function laodMore() {
+    console.log('loadmore');
+}

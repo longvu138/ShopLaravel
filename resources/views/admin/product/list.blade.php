@@ -39,6 +39,6 @@
     </table>
 
     <div class="card-footer clearfix">
-        {!! $products->links() !!}
+        {!! $products->links('') !!}
     </div>
 @endsection

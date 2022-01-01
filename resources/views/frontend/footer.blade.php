@@ -158,7 +158,7 @@
 </div>
 
 <!-- Modal1 -->
-<div class="wrap-modal1 js-modal1 p-t-60 p-b-20">
+{{-- <div class="wrap-modal1 js-modal1 p-t-60 p-b-20">
     <div class="overlay-modal1 js-hide-modal1"></div>
 
     <div class="container">
@@ -323,7 +323,7 @@
             </div>
         </div>
     </div>
-</div>
+</div> --}}
 <!--===============================================================================================-->
 <script src="/template/frontend/vendor/jquery/jquery-3.2.1.min.js"></script>
 <!--===============================================================================================-->
@@ -424,3 +424,5 @@
 </script>
 <!--===============================================================================================-->
 <script src="/template/frontend/js/main.js"></script>
+<script src="/template/frontend/js/public.js"></script>
+
