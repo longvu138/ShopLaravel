@@ -102,4 +102,28 @@ class MenuService
         }
         return true;
     }
+
+    // lấy theo id
+    public function getId($id)
+    {   
+        // lấu ra menu vớI id truyền vào active 1
+        return Menu::where('id', $id)->where('active', 1)->firstOrFail();
+    }
+
+    // 
+    public function getProduct($menu, $request)
+    {
+        $query = $menu->products()
+            ->select('id', 'name', 'price', 'price_sale', 'thumb')
+            ->where('active', 1);
+
+        if ($request->input('price')) {
+            $query->orderBy('price', $request->input('price'));
+        }
+
+        return $query
+            ->orderByDesc('id')
+            ->paginate(4)
+            ->withQueryString();
+    }
 }

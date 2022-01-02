@@ -7,6 +7,8 @@ use App\Http\Controllers\admin\SliderController;
 use App\Http\Controllers\Admin\UploadController;
 use App\Http\Controllers\Admin\User\LoginController;
 use App\Http\Controllers\Frontend\MainController as FrontendMainController;
+use App\Http\Controllers\Frontend\MenuController as FrontendMenuController;
+
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -76,7 +78,11 @@ use Illuminate\Support\Facades\Route;
   
  });
 
-  #Route frontend
-  Route::get('/',[FrontendMainController::class,'index']);
- #LOAD PRODUCT
+    #Route frontend
+    Route::get('/',[FrontendMainController::class,'index']);
+    #LOAD PRODUCT
     Route::post('/services/load-product', [FrontendMainController::class,'loadProduct']);
+    #Route Danh mục
+    Route::get('danh-muc/{id}-{slug}.html', [FrontendMenuController::class, 'index']);
+    #Route Sản Phẩm
+    Route::get('san-pham/{id}-{slug}.html', [App\Http\Controllers\ProductController::class, 'loadProduct']);
