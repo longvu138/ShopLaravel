@@ -8,7 +8,7 @@ use App\Http\Controllers\Admin\UploadController;
 use App\Http\Controllers\Admin\User\LoginController;
 use App\Http\Controllers\Frontend\MainController as FrontendMainController;
 use App\Http\Controllers\Frontend\MenuController as FrontendMenuController;
-
+use App\Http\Controllers\Frontend\ProductController as FrontendProductController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -85,4 +85,6 @@ use Illuminate\Support\Facades\Route;
     #Route Danh mục
     Route::get('danh-muc/{id}-{slug}.html', [FrontendMenuController::class, 'index']);
     #Route Sản Phẩm
-    Route::get('san-pham/{id}-{slug}.html', [App\Http\Controllers\ProductController::class, 'loadProduct']);
+    Route::get('san-pham/{id}-{slug}.html', [FrontendProductController::class, 'index']);
+
+    

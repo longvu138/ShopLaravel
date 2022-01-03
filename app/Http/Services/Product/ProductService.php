@@ -25,6 +25,7 @@ class ProductService
             ->where('active', 1)
             ->with('menu')
             ->firstOrFail();
+            // with menu gọi fun menu trong model
     }
 
     public function more($id)
