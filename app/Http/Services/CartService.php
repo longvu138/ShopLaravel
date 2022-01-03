@@ -3,6 +3,8 @@
 
 namespace App\Http\Services;
 
+use App\Models\Cart;
+use App\Models\Customer;
 use App\Models\Product;
 use Illuminate\Support\Facades\Session;
 use Illuminate\Support\Arr;
@@ -28,8 +30,8 @@ class CartService
             return true;
         }
 
-      
-      
+
+
         // kiểm tra id product có tồn tại trong session cart k
         $exists = Arr::exists($carts, $product_id);
         if ($exists) {
@@ -37,7 +39,7 @@ class CartService
             Session::put('carts', $carts);
             return true;
         }
-       
+
         $carts[$product_id] = $qty;
         Session::put('carts', $carts);
 
@@ -48,7 +50,7 @@ class CartService
     {
         $carts = Session::get('carts');
         if (is_null($carts)) return [];
-     
+
         $productId = array_keys($carts);
         return Product::select('id', 'name', 'price', 'price_sale', 'thumb')
             ->where('active', 1)
@@ -57,7 +59,7 @@ class CartService
     }
 
     public function update($request)
-    {   
+    {
 
         // cập nhât giỏ hàng với số liệu mớI 
         Session::put('carts', $request->input('num_product'));
@@ -74,5 +76,63 @@ class CartService
         // Session::flash('success', 'Xoá sản phẩm khỏi giỏ hàng');
 
         return true;
+    }
+
+    public function addCart($request)
+    {
+        try {
+            // nếu lỗi back lại data k insert
+            DB::beginTransaction();
+            // keiẻm tra giỏ ahfng có hàng chưa
+            $carts = Session::get('carts');
+
+            if (is_null($carts))
+                return false;
+               
+
+            // lấy tt ngưỜI d ùng
+            $customer = Customer::create([
+                'name' => $request->input('name'),
+                'phone' => $request->input('phone'),
+                'address' => $request->input('address'),
+                'email' => $request->input('email'),
+                'content' => $request->input('content')
+            ]);
+        
+            $this->infoProductCart($carts, $customer->id);
+            DB::commit();
+            Session::flash('success', 'Đặt Hàng Thành Công');
+
+            // đặt hàng thành công xoá session
+            Session::forget('carts');
+        } catch (\Throwable $th) {
+
+            DB::rollBack();
+            Session::flash('error', 'Đặt Hàng Lỗi, Vui lòng thử lại sau');
+            return false;
         }
+
+        return true;
+    }
+
+    protected function infoProductCart($carts, $customer_id)
+    {
+        $productId = array_keys($carts);
+        $products = Product::select('id', 'name', 'price', 'price_sale', 'thumb')
+            ->where('active', 1)
+            ->whereIn('id', $productId)
+            ->get();
+
+        $data = [];
+        foreach ($products as $product) {
+            $data[] = [
+                'customer_id' => $customer_id,
+                'product_id' => $product->id,
+                'pty'   => $carts[$product->id],
+                'price' => $product->price_sale != 0 ? $product->price_sale : $product->price
+            ];
+        }
+
+        return Cart::insert($data);
+    }
 }
