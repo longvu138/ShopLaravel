@@ -45,8 +45,9 @@ class CartController extends Controller
         return redirect('/carts');
     }
 
-    public function remove()
+    public function remove($id=0)
     {
-        # code...
+        $this->cartService->remove($id);
+        return redirect('/carts');
     }
 }

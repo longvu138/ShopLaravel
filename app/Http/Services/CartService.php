@@ -64,4 +64,15 @@ class CartService
 
         return true;
     }
+
+    public function remove($id)
+    {
+        $carts = Session::get('carts');
+        unset($carts[$id]);
+
+        Session::put('carts', $carts);
+        // Session::flash('success', 'Xoá sản phẩm khỏi giỏ hàng');
+
+        return true;
+        }
 }
