@@ -6,6 +6,7 @@ use App\Http\Controllers\admin\ProductController;
 use App\Http\Controllers\admin\SliderController;
 use App\Http\Controllers\Admin\UploadController;
 use App\Http\Controllers\Admin\User\LoginController;
+use App\Http\Controllers\Frontend\CartController;
 use App\Http\Controllers\Frontend\MainController as FrontendMainController;
 use App\Http\Controllers\Frontend\MenuController as FrontendMenuController;
 use App\Http\Controllers\Frontend\ProductController as FrontendProductController;
@@ -78,13 +79,16 @@ use Illuminate\Support\Facades\Route;
   
  });
 
-    #Route frontend
-    Route::get('/',[FrontendMainController::class,'index']);
-    #LOAD PRODUCT
-    Route::post('/services/load-product', [FrontendMainController::class,'loadProduct']);
-    #Route Danh mục
-    Route::get('danh-muc/{id}-{slug}.html', [FrontendMenuController::class, 'index']);
-    #Route Sản Phẩm
-    Route::get('san-pham/{id}-{slug}.html', [FrontendProductController::class, 'index']);
-
-    
+#Route frontend
+Route::get('/',[FrontendMainController::class,'index']);
+#LOAD PRODUCT
+Route::post('/services/load-product', [FrontendMainController::class,'loadProduct']);
+#Route Danh mục
+Route::get('danh-muc/{id}-{slug}.html', [FrontendMenuController::class, 'index']);
+#Route Sản Phẩm
+Route::get('san-pham/{id}-{slug}.html', [FrontendProductController::class, 'index']);
+#ROUTE CART
+Route::post('add-cart', [CartController::class,'index']);
+Route::get('/carts',[CartController::class,'show'] );
+Route::post('update-cart', [CartController::class, 'update']);
+Route::get('carts/delete/{id}', [CartController::class, 'remove']);

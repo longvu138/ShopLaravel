@@ -87,6 +87,7 @@
                             <div class="flex-w flex-r-m p-b-10">
                                 <div class="size-204 flex-w flex-m respon6-next">
                                     <form action="/add-cart" method="post">
+                                        @csrf
                                         @if ($product->price !== NULL)
                                             <div class="wrap-num-product flex-w m-r-20 m-tb-10">
                                                 <div class="btn-num-product-down cl8 hov-btn3 trans-04 flex-c-m">
@@ -108,7 +109,7 @@
                                             </button>
                                             <input type="hidden" name="product_id" value="{{ $product->id }}">
                                         @endif
-                                        @csrf
+                                     
                                     </form>
                                 </div>
                             </div>
