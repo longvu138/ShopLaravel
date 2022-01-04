@@ -104,8 +104,8 @@ class CartService
             DB::commit();
 
             #Queue gửI mail
-            SendMail::dispatch($request->input('email'))->delay(now()->addSeconds(5));
-            
+            // SendMail::dispatch($request->input('email'))->delay(now()->addSeconds(5));
+
             // đặt hàng thành công xoá session
             Session::forget('carts');
         } catch (\Throwable $th) {
@@ -138,4 +138,18 @@ class CartService
 
         return Cart::insert($data);
     }
+
+    // lấy ra người đặt hàng 
+    public function getCustomer()
+    {
+        return Customer::orderByDesc('id')->paginate(5);
+    }
+
+    public function getProductForCart($customer)
+    {
+        return $customer->carts()->with(['product' => function ($query) {
+            $query->select('id', 'name', 'thumb');
+        }])->get();
+    }
+
 }
