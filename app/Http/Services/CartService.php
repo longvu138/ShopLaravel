@@ -3,6 +3,7 @@
 
 namespace App\Http\Services;
 
+use App\Jobs\SendMail;
 use App\Models\Cart;
 use App\Models\Customer;
 use App\Models\Product;
@@ -101,8 +102,10 @@ class CartService
         
             $this->infoProductCart($carts, $customer->id);
             DB::commit();
-            Session::flash('success', 'Đặt Hàng Thành Công');
 
+            #Queue gửI mail
+            SendMail::dispatch($request->input('email'))->delay(now()->addSeconds(5));
+            
             // đặt hàng thành công xoá session
             Session::forget('carts');
         } catch (\Throwable $th) {
