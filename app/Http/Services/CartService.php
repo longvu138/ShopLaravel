@@ -104,7 +104,7 @@ class CartService
             DB::commit();
 
             #Queue gửI mail
-            // SendMail::dispatch($request->input('email'))->delay(now()->addSeconds(5));
+            // SendMail::dispatch($request->input('email'))->delay(now()->addSeconds(2));
 
             // đặt hàng thành công xoá session
             Session::forget('carts');

@@ -18,7 +18,7 @@
             @endphp
 
             <ul class="header-cart-wrapitem w-full">
-                @if (count($products) > 0)
+                @if ( isset($products) && count($products) > 0)
                     @foreach ($products as $key => $product)
                         @php
                             $price = $product->price_sale != 0 ? $product->price_sale : $product->price;
