@@ -14,6 +14,18 @@ class LoginController extends Controller
         return view('admin.user.login')->with(compact('title'));
     }
 
+    public function logout(Request $request)
+    {
+        // dd($request);
+        Auth::logout();
+
+        $request->session()->invalidate();
+    
+        $request->session()->regenerateToken();
+    
+        return redirect()->route('admin');
+    }
+
     public function store(Request $request)
     {
         // dd($request->input());

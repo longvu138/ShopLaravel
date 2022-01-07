@@ -16,9 +16,19 @@
                             class="fas fa-bars"></i></a>
                 </li>
             </ul>
+            {{--  --}}
 
             <!-- Right navbar links -->
             <ul class="navbar-nav ml-auto">
+                <div class="dropdown">
+                    <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton"
+                        data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        Xin Chào: {{ Auth::user()->name }}
+                    </button>
+                    <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                        <a class="dropdown-item" href="/admin/logout">Đăng Xuất</a>
+                    </div>
+                </div>
 
                 <li class="nav-item">
                     <a class="nav-link" data-widget="fullscreen" href="#" role="button">
